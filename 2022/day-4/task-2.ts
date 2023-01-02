@@ -13,14 +13,16 @@ const data = fs
       .flat()
   ) as pairIDs[]
 
-function calcFullRanges(data: pairIDs[]) {
+function calcOverlaps(data: pairIDs[]) {
   let counter = 0
 
   data.forEach(pair => {
     if (
-      (+pair[0] <= +pair[2] && +pair[1] >= +pair[3]) ||
-      (+pair[0] >= +pair[2] && +pair[1] <= +pair[3])
+      (+pair[1] >= +pair[2] && +pair[1] <= +pair[3]) ||
+      (+pair[0] <= +pair[3] && +pair[0] >= +pair[2]) ||
+      (+pair[0] <= +pair[2] && +pair[1] >= +pair[3])
     ) {
+      console.log(pair)
       ++counter
     }
   })
@@ -28,4 +30,4 @@ function calcFullRanges(data: pairIDs[]) {
   return counter
 }
 
-console.log(calcFullRanges(data))
+console.log(calcOverlaps(data))
